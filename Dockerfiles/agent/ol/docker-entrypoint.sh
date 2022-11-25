@@ -84,7 +84,7 @@ update_config_var() {
         sed -i -e "/^$var_name=/s/=.*/=$var_value/" "$config_path"
         echo "updated"
     elif [ "$(grep -Ec "^# $var_name=" $config_path)" -gt 1 ]; then
-        sed -i -e  "/^[#;] $var_name=$/i\\$var_name=$var_value" "$config_path"
+        sed -i -e "/^[#;] $var_name=$/i\\$var_name=$var_value" "$config_path"
         echo "added first occurrence"
     elif [ "$(grep -Ec "^[#;] $var_name=" $config_path)" -gt 0 ]; then
         sed -i -e "/^[#;] $var_name=/s/.*/&\n$var_name=$var_value/" "$config_path"
@@ -168,7 +168,7 @@ prepare_zbx_agent_config() {
     update_config_var $ZBX_AGENT_CONFIG "BufferSize" "${ZBX_BUFFERSIZE}"
     update_config_var $ZBX_AGENT_CONFIG "MaxLinesPerSecond" "${ZBX_MAXLINESPERSECOND}"
     # Please use include to enable Alias feature
-#    update_config_multiple_var $ZBX_AGENT_CONFIG "Alias" ${ZBX_ALIAS}
+    #    update_config_multiple_var $ZBX_AGENT_CONFIG "Alias" ${ZBX_ALIAS}
     update_config_var $ZBX_AGENT_CONFIG "Timeout" "${ZBX_TIMEOUT}"
     update_config_var $ZBX_AGENT_CONFIG "Include" "/etc/zabbix/zabbix_agentd.d/*.conf"
     update_config_var $ZBX_AGENT_CONFIG "UnsafeUserParameters" "${ZBX_UNSAFEUSERPARAMETERS}"
